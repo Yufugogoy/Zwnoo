@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - ZenoStore</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .anime-character {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 150px;
+            height: 150px;
+            background: url('https://i.imgur.com/7QpODcP.png') no-repeat center center;
+            background-size: contain;
+            z-index: 1;
+            filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            margin-top: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .payment-options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .payment-card {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.3s, background 0.3s;
+            cursor: pointer;
+        }
+
+        .payment-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .payment-card i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #bfdbfe;
+        }
+
+        .payment-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+
+        .payment-details {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .payment-details p {
+            margin: 5px 0;
+            font-size: 1.1rem;
+            word-break: break-all;
+        }
+
+        .qris-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .qris-image {
+            width: 200px;
+            height: 200px;
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .qris-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .whatsapp-channel {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(37, 211, 102, 0.2);
+            border-radius: 15px;
+        }
+
+        .whatsapp-channel a {
+            color: #fff;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            font-size: 1.2rem;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background: #25D366;
+            border-radius: 50px;
+            transition: background 0.3s;
+        }
+
+        .whatsapp-channel a:hover {
+            background: #128C7E;
+        }
+
+        .whatsapp-channel i {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+
+        .instructions {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+        }
+
+        .instructions h3 {
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .instructions ol {
+            padding-left: 20px;
+        }
+
+        .instructions li {
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        @media (min-width: 768px) {
+            .payment-options {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .anime-character {
+                width: 200px;
+                height: 200px;
+            }
+        }
+
+        .decoration {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, rgba(59, 130, 246, 0.4), rgba(30, 58, 138, 0.2));
+            filter: blur(40px);
+            z-index: -1;
+        }
+
+        .decoration:nth-child(1) {
+            top: -50px;
+            left: -50px;
+        }
+
+        .decoration:nth-child(2) {
+            bottom: -80px;
+            right: -50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="decoration"></div>
+    <div class="decoration"></div>
+    
+    <div class="container">
+        <div class="header">
+            <h1>Payment Gateway</h1>
+            <p>Lakukan pembayaran dengan metode di bawah ini</p>
+        </div>
+        
+        <div class="payment-options">
+            <div class="payment-card">
+                <i class="fab fa-android"></i>
+                <h3>DANA</h3>
+                <div class="payment-details">
+                    <p>081264965042</p>
+                    <p>A/N: HARMITA</p>
+                </div>
+            </div>
+            
+            <div class="payment-card">
+                <i class="fas fa-qrcode"></i>
+                <h3>QRIS All Pay</h3>
+                <div class="qris-container">
+                    <div class="qris-image">
+                        <img src="https://files.catbox.moe/18j0ko.jpg" alt="QRIS Payment">
+                    </div>
+                    <p>Scan QRIS untuk pembayaran</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="whatsapp-channel">
+            <h3>Ikuti Saluran WhatsApp Kami</h3>
+            <p>Dapatkan informasi terbaru dan promo spesial</p>
+            <a href="https://whatsapp.com/channel/0029Vb6Nck947Xe2JHe0xy3d" target="_blank">
+                <i class="fab fa-whatsapp"></i> Follow Channel
+            </a>
+        </div>
+        
+        <div class="instructions">
+            <h3>Cara Pembayaran</h3>
+            <ol>
+                <li>Pilih metode pembayaran yang diinginkan (DANA atau QRIS)</li>
+                <li>Untuk DANA: transfer ke nomor yang tertera atas nama HARMITA</li>
+                <li>Untuk QRIS: scan kode QR menggunakan aplikasi bank atau e-wallet Anda</li>
+                <li>Setelah pembayaran berhasil, simpan bukti transaksi</li>
+                <li>Konfirmasi pembayaran melalui WhatsApp jika diperlukan</li>
+            </ol>
+        </div>
+    </div>
+    
+    <div class="anime-character"></div>
+    
+    <div class="footer">
+        <p>&copy; 2023 Payment Gateway - Harmita. All rights reserved.</p>
+    </div>
+
+    <script>
+        // Simple animation for payment cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.payment-card');
+            
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                    this.style.background = 'rgba(255, 255, 255, 0.25)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.background = 'rgba(255, 255, 255, 0.15)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
